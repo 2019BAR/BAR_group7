@@ -139,13 +139,12 @@ which.min(sort(table(format(ts,"%m"))))#
 
 【2.4】 On which weekday did the most motor vehicle thefts occur?
 ```{r}
-which.max(sort(table(format(ts,"%w"))))#
-#
+which.max(sort(table(format(ts,"%w")))) # 星期五
 ```
 
 【2.5】 Which month has the largest number of motor vehicle thefts for which an arrest was made?
 ```{r}
-which.max(sort(table(format(ts[D$Arrest],"m"))))#
+which.max(sort(table(format(ts[D$Arrest],"%m")))) #一月
 ```
 
 <br><br>
