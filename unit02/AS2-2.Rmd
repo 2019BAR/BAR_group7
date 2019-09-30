@@ -150,7 +150,9 @@ abline(v=as.Date(c("2000-03-01","1983-01-01", "1984-01-01")),col="gray",lty=3)
 
 __§ 2.3__ (a) Around 1983, the stock for one of these companies (Coca-Cola or Procter and Gamble) was going up, while the other was going down. Which one was going up? 
 ```{r}
-#Procter and Gamble
+plot(CO$Date, CO$StockPrice, type="l", col="purple", xlim =as.Date(c("1983-01-01","1984-01-01")))
+lines(PG$Date, PG$StockPrice, type="l", col="blue")
+#Coca-Cola
 ```
 
 (b) In the time period shown in the plot, which stock generally has lower values?
