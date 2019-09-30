@@ -1,6 +1,6 @@
 ---
 title: "AS2-3: 美國的人口統計和就業資料"
-author: "第 0 組"
+author: "第 7 組"
 date: "`r Sys.time()`"
 output: 
   html_document:
