@@ -121,7 +121,7 @@ tapply(is.na(A$Married), A$Sex, mean)
 tapply(is.na(A$Married), A$Age, mean)
 tapply(is.na(A$Married), A$Citizenship, mean)
 
-#
+#age
 ```
 
 __§ 2.3__ How many states had all interviewees living in a non-metropolitan area (aka they have a missing MetroAreaCode value)? For this question, treat the District of Columbia as a state (even though it is not technically a state).
@@ -210,8 +210,7 @@ tapply(A$Education=='No high school diploma', A$MetroArea, mean, na.rm=T) %>%
 
 __§ 4.1__ What is the name of the variable added to the CPS data frame by this merge operation?
 ```{r}
-A = merge(A, CountryMap, by.x="CountryOfBirthCode", by.y="Code", all.x=TRUE)
-A = merge(A, MetroAreaMap, by.x="MetroAreaCode", by.y="Code", all.x=TRUE)
+
 ```
 
 How many interviewees have a missing value for the new `Country` variable?
