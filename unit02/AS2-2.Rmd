@@ -54,6 +54,11 @@ GE = read.csv('data/GEstock.csv')
 PG = read.csv('data/ProcterGambleStock.csv')
 CO = read.csv('data/CocaColastock.csv')
 BOE = read.csv('data/Boeingstock.csv')
+# 每個都一樣故取其中一個計算
+```
+```{r}
+nrow(IBM) 
+ncol(IBM)
 ```
 
 
@@ -66,16 +71,15 @@ PG$Date = as.character(PG$Date) %>% as.Date('%m/%d/%y')
 CO$Date = as.character(CO$Date) %>% as.Date('%m/%d/%y')
 BOE$Date = as.character(BOE$Date) %>% as.Date('%m/%d/%y')
 
-min(IBM$Date)
-range(IBM$Date)
+min(IBM$Date,GE$Date,PG$Date,CO$Date,BOE$Date)
 ```
 
 __§ 1.3__ What is the latest year in our datasets?
 ```{r}
-max(IBM$Date)
+max(IBM$Date,GE$Date,PG$Date,CO$Date,BOE$Date)
+range(IBM$Date,GE$Date,PG$Date,CO$Date,BOE$Date) # 補充驗證，列出時間區間的起始與結束
 ```
 <br>
-
 <span style="font-size:20px">`r "\U1F4A1"`</span>
 資料框的序列 a list of data.frame
 ```{r}
@@ -135,6 +139,13 @@ __§ 2.1__ Around what year did Coca-Cola has its highest stock price in this ti
 ```{r}
 plot(CO$Date, CO$StockPrice, type="l") #type="l"表示畫線圖
 ```
+```{r}
+CO$Date[which.max(CO$StockPrice)]  # 股價最高時期
+```
+```{r}
+CO$Date[which.min(CO$StockPrice)]  # 股價最低時期
+```
+
 
 
 __§ 2.2__ In March of 2000, the technology bubble burst, and a stock market crash occurred. According to this plot, which company's stock dropped more?
@@ -144,20 +155,24 @@ lines(BOE$Date, BOE$StockPrice, type="l", col="cyan")
 lines(GE$Date, GE$StockPrice, type="l", col="pink")
 lines(CO$Date, CO$StockPrice, type="l", col="purple")
 lines(PG$Date, PG$StockPrice, type="l", col="blue")
-abline(v=as.Date(c("2000-03-01","1983-01-01", "1984-01-01")),col="gray",lty=3)
-#
+abline(v=as.Date(c("2000-03-01","1983-01-01", "1984-01-01")),col="red",lty=3, lwd=2)
+```
+```{r}
+# 由上圖畫線判斷BOE為當時最低
 ```
 
 __§ 2.3__ (a) Around 1983, the stock for one of these companies (Coca-Cola or Procter and Gamble) was going up, while the other was going down. Which one was going up? 
 ```{r}
 plot(CO$Date, CO$StockPrice, type="l", col="purple", xlim =as.Date(c("1983-01-01","1984-01-01")))
 lines(PG$Date, PG$StockPrice, type="l", col="blue")
-#Coca-Cola
+# 由上圖畫線判斷
+# Coca-Cola為當時上漲
+# Procter and Gamble 下跌
 ```
 
 (b) In the time period shown in the plot, which stock generally has lower values?
 ```{r}
-#Boeing?
+#Boeing
 ```
 
 

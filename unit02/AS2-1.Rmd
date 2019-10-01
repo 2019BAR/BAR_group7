@@ -60,8 +60,7 @@ str(D)
 
 【1.2】How many variables are in this dataset?
 ```{r}
-ncol(D)#
-#
+ncol(D)
 ```
 
 
@@ -80,6 +79,7 @@ min(D$Beat)
 【1.5】 How many observations have value TRUE in the Arrest variable (this is the number of crimes for which an arrest was made)?
 ```{r}
 sum(D$Arrest)
+mean(D$Arrest)
 ```
 
 【1.6】 How many observations have a LocationDescription value of ALLEY?
@@ -111,40 +111,41 @@ hist(ts,"year",las=2,freq=T,xlab="")
 
 <z>二維的`table()`</z>
 ```{r}
-table(format(ts,'%u'))#
+table(format(ts,'%w')) # 從星期天到星期六每天發生竊案的數量
+```
+```{r}
 table(format(ts,'%m'))
-table(weekday=format(ts,'%u'), month=format(ts,'%m'))
+```
+```{r}
+table(weekday=format(ts,'%w'), month=format(ts,'%m'))
 
 ```
 
-- - -
-
 <z>二維矩陣的視覺化</z>
 ```{r fig.height=2.8, fig.width=8}
-table(format(ts,"%u"), format(ts,"%m")) %>% 
+table(format(ts,"%u"), format(ts,"%H")) %>% 
   as.data.frame.matrix %>% 
   d3heatmap(F,F,col=colorRamp(c('seagreen','lightyellow','red')))
 ```
 
 【2.2】 What is the month and year of the median date in our dataset? 
 ```{r}
-median(ts)#
-#
+median(ts)
 ```
 
 【2.3】 In which month did the fewest motor vehicle thefts occur?
 ```{r}
-which.min(sort(table(format(ts,"%m"))))#
+sort(table(format(ts,"%m")))
 ```
 
 【2.4】 On which weekday did the most motor vehicle thefts occur?
 ```{r}
-which.max(sort(table(format(ts,"%w")))) # 星期五
+format(ts,"%w") %>% table %>% sort # 星期五
 ```
 
 【2.5】 Which month has the largest number of motor vehicle thefts for which an arrest was made?
 ```{r}
-which.max(sort(table(format(ts[D$Arrest],"%m")))) #一月
+ts[D$Arrest] %>% format('%m') %>% table %>% sort #一月
 ```
 
 <br><br>
@@ -157,12 +158,14 @@ which.max(sort(table(format(ts[D$Arrest],"%m")))) #一月
 hist(ts,'year',las=2)
 
 ```
-
+```{r}
+# 2002~2012 : decrease
+# 2005~2008 : decrease
+# 2009~2011 : increase
+```
 【3.2】 Does it look like there were more crimes for which arrests were made in the first half of the time period or the second half of the time period?
 ```{r}
-
-table(ts[D$Arrest] > as.POSIXct(median(ts)))#
-#
+table(ts > as.POSIXct("2007-01-01")) #20070101區分總時間為前後時間段，前半段較多人被逮捕
 ```
 
 【3.3】 For what proportion of motor vehicle thefts in 2001 was an arrest made?
@@ -177,7 +180,7 @@ tapply(D$Arrest, format(ts,'%Y'), mean) %>% round(3)
 
 【3.5】 For what proportion of motor vehicle thefts in 2012 was an arrest made?
 ```{r}
-tapply(D$Arrest,format(ts,"%Y"),mean) %>% round(3)
+# 0.039
 ```
 
 <br><br>
@@ -195,7 +198,7 @@ table(D$LocationDescription) %>% sort %>% tail(6)
 【4.2】 How many observations are in Top5?
 ```{r}
 (top5 = names(table(D$LocationDescription) %>% sort %>% tail(6))[-4])
-sum(D$LocationDescription %in% top5) #
+sum(D$LocationDescription %in% top5) #177510
 
 ```
 
